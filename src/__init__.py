@@ -1,0 +1,3 @@
+"""
+Event Intelligent System Package
+"""
