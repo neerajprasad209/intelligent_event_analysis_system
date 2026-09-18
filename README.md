@@ -128,10 +128,10 @@ The system processes logs through a modular 4-stage pipeline:
 
 ---
 
-## Design Decisions (In Plain English)
+## Design Decisions
 
-### 1. Why We Selected This Approach
-- **Clean Step-by-Step Flow**: We divided the work into clear, independent steps: read data $\rightarrow$ clean errors $\rightarrow$ analyze issues $\rightarrow$ deliver the report.
+### 1. Why I Selected This Approach
+- **Clean Step-by-Step Flow**: I divided the work into clear, independent steps: read data $\rightarrow$ clean errors $\rightarrow$ analyze issues $\rightarrow$ deliver the report.
 - **Doesn't Crash on Bad Data**: Real-world log files often have typos, missing fields, or crazy dates (like `2026-99-99`). Instead of crashing, our system skips broken lines and keeps processing everything else.
 - **Convenient for Everyone**: Engineers can run it directly in their terminal (`python src/main.py`) or use an interactive web interface with clickable buttons (`http://127.0.0.1:5000/docs`).
 
@@ -141,13 +141,13 @@ The system processes logs through a modular 4-stage pipeline:
 - If all events succeeded without problems, the device is marked **`HEALTHY`**.
 
 ### 3. How Root Cause Is Determined
-- **Put Events in Time Order**: Logs often arrive out of sequence due to network lag. We sort all events chronologically first so we see the exact sequence of events.
-- **Find the First Domino**: When a device fails, several errors usually follow like falling dominoes. We find the **very first failure** in the timeline, which reveals the true root cause (such as a bad password or disconnected cable) rather than a downstream symptom.
-- **Confidence Score**: If a device failed and repeatedly retried, our confidence in the diagnosis rises (from 75% up to 98%) because repeated attempts prove it is a persistent problem, not a momentary glitch.
+- **Put Events in Time Order**: Logs often arrive out of sequence due to network lag. I sort all events chronologically first so I see the exact sequence of events.
+- **Find the First Domino**: When a device fails, several errors usually follow like falling dominoes. I find the **very first failure** in the timeline, which reveals the true root cause (such as a bad password or disconnected cable) rather than a downstream symptom.
+- **Confidence Score**: If a device failed and repeatedly retried, my confidence in the diagnosis rises (from 75% up to 98%) because repeated attempts prove it is a persistent problem, not a momentary glitch.
 - **Actionable Checklist**: Based on what failed, the system provides a clear, human-readable checklist so technicians know immediately what to inspect and fix.
 
 ### 4. How the Application Can Scale
-- **Divide and Conquer**: Each device's logs are completely independent. To handle millions of devices, we can split them across multiple computers working simultaneously.
+- **Divide and Conquer**: Each device's logs are completely independent. To handle millions of devices, I can split them across multiple computers working simultaneously.
 - **Conveyor-Belt Processing**: Rather than reading a static file on disk, the system can plug into a live data stream (like Kafka) to analyze events the second they happen.
 - **Cloud Storage**: Results can be stored in fast cloud databases (like ClickHouse or BigQuery) for instant searching across millions of devices.
 
